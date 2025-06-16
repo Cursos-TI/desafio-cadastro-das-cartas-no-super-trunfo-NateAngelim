@@ -1,133 +1,105 @@
-#include <stdio.h>
+#include <stdio.h> 
+int main()
+{
+    
+    char estado1;
+    char codigo_carta1[5];
+    char nome_cidade1[20];
+    int populacao1;
+    float area_km2_1;
+    float pib1;
+    int pontos_turisticos1;
+    float densidade_populacional1; 
+    float pib_per_capita1;       
 
-// Definindo as dimensões do tabuleiro
-#define TAMANHO_TABULEIRO 10
-// Definindo o tamanho dos navios
-#define TAMANHO_NAVIO 3
-// Representação de água
-#define AGUA 0
-// Representação de navio
-#define NAVIO 3
+    
+    char estado2;
+    char codigo_carta2[5];
+    char nome_cidade2[20];
+    int populacao2;
+    float area_km2_2;
+    float pib2;
+    int pontos_turisticos2;
+    float densidade_populacional2; 
+    float pib_per_capita2;       
+    
+    printf(" Cadastro da Primeira Carta \n");
 
-// Função para verificar se uma posição está dentro dos limites do tabuleiro
-// Retorna 1 (verdadeiro) se estiver dentro, 0 (falso) caso contrário.
-int esta_dentro_limites(int linha, int coluna) {
-    if (linha >= 0 && linha < TAMANHO_TABULEIRO &&
-        coluna >= 0 && coluna < TAMANHO_TABULEIRO) {
-        return 1; // Verdadeiro
-    }
-    return 0; // Falso
-}
+    printf("Estado (A a H): ");
+    scanf(" %c", &estado1); 
 
-// Função para verificar se o posicionamento de um navio é válido (não sai do tabuleiro e não sobrepõe)
-// Retornar 1 (verdadeiro) se o posicionamento for válido, 0 (falso) caso contrário.
-int validar_posicionamento(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO],
-                            int linha_inicial, int coluna_inicial,
-                            int orientacao, int tamanho_navio) {
-    for (int i = 0; i < tamanho_navio; i++) {
-        int linha_atual = linha_inicial;
-        int coluna_atual = coluna_inicial;
+    printf("Codigo da Carta (Ex: A01): ");
+    scanf("%s", codigo_carta1);
 
-        if (orientacao == 0) { // Horizontal
-            coluna_atual += i;
-        } else if (orientacao == 1) { // Vertical
-            linha_atual += i;
-        } else if (orientacao == 2) { // Diagonal principal (linha e coluna aumentam)
-            linha_atual += i;
-            coluna_atual += i;
-        } else if (orientacao == 3) { // Diagonal secundária (linha aumenta, coluna diminui)
-            linha_atual += i;
-            coluna_atual -= i;
-        }
+    printf("Nome da Cidade : ");
+    scanf("%s", nome_cidade1);
 
-        // Verifica se a posição está dentro dos limites do tabuleiro
-        if (!esta_dentro_limites(linha_atual, coluna_atual)) {
-            return 0; // Fora dos limites (falso)
-        }
-        // Verifica se a posição já está ocupada por outro navio
-        if (tabuleiro[linha_atual][coluna_atual] == NAVIO) {
-            return 0; // Sobreposição (falso)
-        }
-    }
-    return 1; // Posicionamento válido (verdadeiro)
-}
+    printf("Populacao: ");
+    scanf("%d", &populacao1);
 
-// Função para posicionar um navio no tabuleiro
-// orientacao: 0=horizontal, 1=vertical, 2=diagonal_principal, 3=diagonal_secundaria
-void posicionar_navio(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO],
-                      int linha_inicial, int coluna_inicial,
-                      int orientacao, int tamanho_navio) {
-    if (validar_posicionamento(tabuleiro, linha_inicial, coluna_inicial, orientacao, tamanho_navio)) {
-        for (int i = 0; i < tamanho_navio; i++) {
-            int linha_atual = linha_inicial;
-            int coluna_atual = coluna_inicial;
+    printf("Area (em km2): ");
+    scanf("%f", &area_km2_1);
 
-            if (orientacao == 0) { // Horizontal
-                coluna_atual += i;
-            } else if (orientacao == 1) { // Vertical
-                linha_atual += i;
-            } else if (orientacao == 2) { // Diagonal principal (linha e coluna aumentam)
-                linha_atual += i;
-                coluna_atual += i;
-            } else if (orientacao == 3) { // Diagonal secundária (linha aumenta, coluna diminui)
-                linha_atual += i;
-                coluna_atual -= i;
-            }
-            tabuleiro[linha_atual][coluna_atual] = NAVIO;
-        }
-        printf("Navio posicionado com sucesso! (Início: %d,%d | Orientação: %d)\n", linha_inicial, coluna_inicial, orientacao);
-    } else {
-        printf("Erro: Não foi possível posicionar o navio (Início: %d,%d | Orientação: %d) - Verifique limites ou sobreposição.\n", linha_inicial, coluna_inicial, orientacao);
-    }
-}
+    printf("PIB: ");
+    scanf("%f", &pib1);
 
-int main() {
-    // Criar um Tabuleiro 10x10:
-    int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+    printf("Numero de Pontos Turisticos: ");
+    scanf("%d", &pontos_turisticos1);
 
-    // Inicializa todas as posições do tabuleiro com AGUA (0)
-    for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
-        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
-            tabuleiro[i][j] = AGUA;
-        }
-    }
+    densidade_populacional1 = (float)populacao1 / area_km2_1;
+    pib_per_capita1 = pib1 / (float)populacao1;
 
-    printf(" Posicionar Navios \n");
 
-    // Posicionar Quatro Navios:
+    printf("\n Cadastro da Segunda Carta \n");
 
-    // Navio 1: Horizontal
-    // Início: Linha 1, Coluna 1
-    posicionar_navio(tabuleiro, 1, 1, 0, TAMANHO_NAVIO);
+    printf("Estado (A a H): ");
+    scanf(" %c", &estado2);
 
-    // Navio 2: Vertical
-    // Início: Linha 5, Coluna 8
-    posicionar_navio(tabuleiro, 5, 8, 1, TAMANHO_NAVIO);
+    printf("Codigo da Carta (Ex: A01): ");
+    scanf("%s", codigo_carta2);
 
-    // Navio 3: Diagonal Principal 
-    // Início: Linha 0, Coluna 0
-    posicionar_navio(tabuleiro, 0, 0, 2, TAMANHO_NAVIO);
+    printf("Nome da Cidade : ");
+    scanf("%s", nome_cidade2);
 
-    // Navio 4: Diagonal Secundária 
-    // Início: Linha 3, Coluna 7 (começa na linha 3, coluna 7, e vai para 4,6 e 5,5)
-    posicionar_navio(tabuleiro, 3, 7, 3, TAMANHO_NAVIO);
+    printf("Populacao: ");
+    scanf("%d", &populacao2);
 
-    printf("\n Tabuleiro de Batalha Naval \n");
-    // Imprime cabeçalho das colunas
-    printf("   "); 
-    for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
-        printf("%2d ", j); 
-    }
-    printf("\n");
+    printf("Area (em km2): ");
+    scanf("%f", &area_km2_2);
 
-    for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
-        printf("%2d ", i); // Imprime o índice da linha
-        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
-            printf("%2d ", tabuleiro[i][j]); // 
-        }
-        printf("\n"); 
-    }
-    printf("Batalha naval \n");
+    printf("PIB: ");
+    scanf("%f", &pib2);
+
+    printf("Numero de Pontos Turisticos: ");
+    scanf("%d", &pontos_turisticos2);
+
+    densidade_populacional2 = (float)populacao2 / area_km2_2;
+    pib_per_capita2 = pib2 / (float)populacao2;
+
+
+    printf("\n Informacoes das Cartas Cadastradas \n");
+
+    printf("\n Primeira Carta \n");
+    printf("Estado: %c\n", estado1);
+    printf("Codigo da Carta: %s\n", codigo_carta1);
+    printf("Nome da Cidade: %s\n", nome_cidade1);
+    printf("Populacao: %d habitantes\n", populacao1);
+    printf("Area: %.2f km2\n", area_km2_1);
+    printf("PIB: %.2f\n", pib1);
+    printf("Numero de Pontos Turisticos: %d\n", pontos_turisticos1);
+    printf("Densidade Populacional: %.2f hab/km2\n", densidade_populacional1);
+    printf("PIB per Capita: %.2f\n", pib_per_capita1);
+
+    printf("\n Segunda Carta \n");
+    printf("Estado: %c\n", estado2);
+    printf("Codigo da Carta: %s\n", codigo_carta2);
+    printf("Nome da Cidade: %s\n", nome_cidade2);
+    printf("Populacao: %d habitantes\n", populacao2);
+    printf("Area: %.2f km^2\n", area_km2_2);
+    printf("PIB: %.2f\n", pib2);
+    printf("Numero de Pontos Turisticos: %d\n", pontos_turisticos2);
+    printf("Densidade Populacional: %.2f hab/km2\n", densidade_populacional2);
+    printf("PIB per Capita: %.2f\n", pib_per_capita2);
 
     return 0;
 }
